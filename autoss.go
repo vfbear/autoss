@@ -57,7 +57,7 @@ func getSSInfo(url string) (srvs []*serverInfo) {
 	return
 }
 
-func writeSSInfo(filePath string, srvs *[]*serverInfo) {
+func writeSSInfo(filePath string, srvs []*serverInfo) {
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		log.Fatalln(err)
@@ -76,7 +76,7 @@ func writeSSInfo(filePath string, srvs *[]*serverInfo) {
 		}
 	*/
 	servers := make([]map[string]interface{}, 0)
-	for _, val := range *srvs {
+	for _, val := range srvs {
 		server := make(map[string]interface{})
 		server["server"] = val.addr
 		i, err := strconv.Atoi(val.port)
@@ -120,7 +120,7 @@ func main() {
 	servers := getSSInfo(url)
 
 	cfgFile := "./gui-config.json"
-	writeSSInfo(cfgFile, &servers)
+	writeSSInfo(cfgFile, servers)
 
 	exeFile := "./Shadowsocks.exe"
 	startSS(exeFile)
